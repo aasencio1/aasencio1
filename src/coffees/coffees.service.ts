@@ -20,7 +20,7 @@ private coffees: Coffee[] = [
     {
     return this.coffees;
     }
-    findOne(id: String)
+    /*findOne(id: String)
     {
         throw 'A ramdom error';
         const coffee = this.coffees.find(item => item.id === +id);
@@ -31,19 +31,35 @@ private coffees: Coffee[] = [
         }
         //return this.coffees.find(item => item.id === +id);
         return coffee;
-    }
-    create(createCoffeDto: any)
-    {
-      this.coffees.push(createCoffeDto);        
-    }
-    update (id: string, updateCoffeeDto: any)
-    {
-        const existingCofee = this.findOne(id);
-        if (existingCofee)
-        {
-            //update the existing entity
+    }*/
+    /*findOne(id: string) {
+        return this.coffees.find(item => item.id === +id);
+      }
+     */
+      findOne(id: string) {
+        //throw 'A ramdom error';
+        const coffee = this.coffees.find(item => item.id === +id);
+        if (!coffee) {
+           // throw new HttpException(`Coffee #${id} not found`, HttpStatus.NOT_FOUND);
+          throw new NotFoundException(`Coffee #${id} not found`);
         }
+        return coffee;
+      }
+    
+    create(CreateCoffeeDto: any)
+    {
+      this.coffees.push(CreateCoffeeDto);   
+      return CreateCoffeeDto;
+      //return this.coffees; //le devuelve el Objeto a la Peticion del Controller     
     }
+   // update (id: string, updateCoffeeDto: any)
+   update (id: string, updateCoffeeDto: any)
+    {
+        const existingCoffee = this.findOne(id);
+        if (existingCoffee) {
+          // update the existing entity
+        }
+      }
     remove(id: String)
     {
      const coffeeIndex = this.coffees.findIndex (item => item.id === +id);
